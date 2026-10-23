@@ -1,4 +1,4 @@
-import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
+import { createContext, useCallback, useContext, useMemo, useState, type ReactNode } from "react";
 import { toast } from "sonner";
 import { useCloudState } from "@/lib/cloud-state";
 import {
@@ -65,8 +65,8 @@ export function AcademicProvider({ children }: { children: ReactNode }) {
   const [students, setStudents] = useCloudState<Student[]>("academic.students", STUDENTS);
   const [tasks, setTasks] = useCloudState<Task[]>("academic.tasks", SEED_TASKS);
   const [slots, setSlots] = useCloudState<Slot[]>("academic.slots", SEED_SLOTS);
-  const [attendance, setAttendance] = useCloudState<AttendanceRecord[]>("academic.attendance", seedAttendance);
-  const [grades, setGrades] = useCloudState<GradeEntry[]>("academic.grades", seedGrades);
+  const [attendance, setAttendance] = useCloudState<AttendanceRecord[]>("academic.attendance", seedAttendance());
+  const [grades, setGrades] = useCloudState<GradeEntry[]>("academic.grades", seedGrades());
   const [careNotes, setCareNotes] = useCloudState<CareNote[]>("academic.careNotes", SEED_CARE_NOTES);
   const [announcements, setAnnouncements] = useCloudState<Announcement[]>("academic.announcements", SEED_ANNOUNCEMENTS);
   const [settings, setSettings] = useCloudState<AcademicSettings>("academic.settings", DEFAULT_SETTINGS);
