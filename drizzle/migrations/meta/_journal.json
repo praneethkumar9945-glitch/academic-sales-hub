@@ -29,6 +29,13 @@
       "when": 1792730731496,
       "tag": "0003_app_state_anon_access",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1792733518490,
+      "tag": "0004_rush_hub_schema",
+      "breakpoints": true
     }
   ]
 }
