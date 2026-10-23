@@ -1,26 +1,24 @@
 import { useEffect, useState } from "react";
 
+const KEY = "academia_theme";
+
 export function useTheme() {
-  const [theme, setTheme] = useState<"light" | "dark">("light");
+  const [theme, setTheme] = useState<"light" | "dark">(() => {
+    if (typeof window === "undefined") return "light";
+    return (localStorage.getItem(KEY) as "light" | "dark") || "light";
+  });
 
   useEffect(() => {
-    const stored = (typeof window !== "undefined" && localStorage.getItem("theme")) as
-      | "light"
-      | "dark"
-      | null;
-    const initial = stored ?? "light";
-    setTheme(initial);
-    document.documentElement.classList.toggle("dark", initial === "dark");
-  }, []);
+    document.documentElement.classList.toggle("dark", theme === "dark");
+  }, [theme]);
 
-  const toggle = () => {
-    setTheme((prev) => {
-      const next = prev === "dark" ? "light" : "dark";
-      document.documentElement.classList.toggle("dark", next === "dark");
-      localStorage.setItem("theme", next);
-      return next;
-    });
+  const set = (t: "light" | "dark") => {
+    setTheme(t);
+    localStorage.setItem(KEY, t);
+    document.documentElement.classList.toggle("dark", t === "dark");
   };
 
-  return { theme, toggle };
+  const toggle = () => set(theme === "dark" ? "light" : "dark");
+
+  return { theme, set, toggle };
 }
